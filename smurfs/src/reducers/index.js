@@ -1,7 +1,7 @@
 /*
   Be sure to import in all of the action types from `../actions`
 */
-import { FETCHING, SUCCESS, FAILURE } from '../actions';
+import { FETCHING, SUCCESS, FAILURE, ADD_SMURF, ADD_FRIEND_FAILURE, ADD_FRIEND_SUCCESS } from '../actions';
 
 /*
  Your initial/default state for this project could *Although does not have to* look a lot like this
@@ -17,7 +17,8 @@ import { FETCHING, SUCCESS, FAILURE } from '../actions';
 const initialState = {
   smurfs: [],
   fetching: true,
-  error: null
+  error: null,
+  adding: false
 }
 
 /*
@@ -48,6 +49,25 @@ function reducer(state = initialState, action) {
         fetching: false,
         error: action.payload
       }
+    case ADD_SMURF:
+      return {
+        ...state,
+        adding: true
+      }
+    case ADD_FRIEND_SUCCESS:
+      return {
+        ...state,
+        smurfs: action.payload,
+        fetching: false,
+        error: ''
+      }
+    case ADD_FRIEND_FAILURE:
+      return {
+        ...state,
+        fetching: false,
+        error: 'We have an error'
+      }
+
     default:
       return state
   }
